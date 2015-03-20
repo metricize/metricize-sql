@@ -1,0 +1,21 @@
+USE metricize;
+
+CREATE TABLE User (
+  user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  email VARCHAR(64) NOT NULL DEFAULT '',
+  first_name VARCHAR(64) NOT NULL DEFAULT '',
+  last_name VARCHAR(64) NOT NULL DEFAULT '',
+  password VARCHAR(64) NOT NULL DEFAULT '',
+  salt VARCHAR(16) NOT NULL DEFAULT '',
+  customer_id INT UNSIGNED NOT NULL DEFAULT 0,
+  admin BOOLEAN NOT NULL DEFAULT false,
+  PRIMARY KEY (user_id),
+  UNIQUE email_indx (email)
+) ENGINE=INNODB;
+
+CREATE TABLE UserSession (
+  session_key VARCHAR(64) NOT NULL,
+  user_id INT UNSIGNED NOT NULL,
+  expiration DATETIME NOT NULL,
+  PRIMARY KEY (session_key)
+) ENGINE=MEMORY;
