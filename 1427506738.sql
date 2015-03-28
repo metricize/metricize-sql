@@ -1,0 +1,19 @@
+USE metricize;
+
+ALTER TABLE Agent CHANGE COLUMN agent_type agent_type ENUM('NONE', 'MYSQL', 'POSTGRES', 'REST', 'LOG') NOT NULL DEFAULT 'NONE';
+
+ALTER TABLE MYSQLAgentConfig ADD COLUMN db_name VARCHAR(256) NOT NULL DEFAULT '';
+
+CREATE TABLE POSTGRESAgentConfig (
+  postgres_agent_config_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  agent_id INT UNSIGNED NOT NULL,
+  username VARCHAR(256) NOT NULL DEFAULT '',
+  password VARCHAR(256) NOT NULL DEFAULT '',
+  fqdn VARCHAR(256) NOT NULL DEFAULT '',
+  port INT NOT NULL DEFAULT 5432,
+  query_string TEXT NOT NULL,
+  count_per TINYINT DEFAULT 1,
+  time_unit ENUM('SECOND', 'MINUTE', 'HOUR') DEFAULT 'SECOND',
+  db_name VARCHAR(256) NOT NULL DEFAULT '',
+  PRIMARY KEY (postgres_agent_config_id)
+);
